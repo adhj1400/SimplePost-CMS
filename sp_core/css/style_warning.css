@@ -1,0 +1,23 @@
+#alert-message {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  transition: top .5s;
+  height: 0;
+}
+
+.message {
+  position: relative;
+  text-align: center;
+  max-width: 600px;
+  padding: 20px;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 0 0 6px 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+}
+
+.message:empty {
+  display:none;
+}

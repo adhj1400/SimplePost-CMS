@@ -1,0 +1,52 @@
+###############################################################
+######################## Documentation ########################
+###############################################################
+
+### QUICK-START
+1. 	Install an Apache 2.4 PHP server and MySQL (e.g. WAMP).
+
+2. 	Launch your server and go onto http://127.0.0.1/ in your 
+	web browser (localhost) or provided registrar domain name.
+
+3. 	Drag the SimplePost installation onto the servers 
+	appropriate project directory.
+
+4.a Create a database using your phpMyAdmin.
+
+4.b Make sure apache is setup to override 
+	with RewriteCond. (Advanced)
+
+4.c Edit .htaccess files and change the directory of auto_prepend 
+	to root directory.
+
+5. 	Go to config.php in the root directory.
+
+6. 	Fill in the servername, database to use and the database root 
+	username and password.
+
+7. 	Open your website and follow the onscreen instructions.
+
+### GLOBAL FUNCTIONS
+- getPosts(start_offset, amount, sort_by_type)
+	How to use: This function returns an array of posts. Each entry 
+	in the array contains an array that represents all the post info
+	such as post title, post image, and so on. 'start_offset'
+	decides where in the database to begin and 'amount' sets how
+	many posts should be in the returned array. 'sort_by_type' is
+	a string value to sort by, for example 'date' will sort the
+	array by post dates automatically.
+- getSinglePost(post_id)
+	How to use: Get an array of post information. 'post_id' is the posts PK
+	(primary key) uniquely identifying the post in the database.
+	Useful for linking when combined with getPosts() since it 
+	contains these id's.
+
+
+### TROUBLESHOOTING
+- ERROR: CR_SERVER_GONE_ERROR "MySQL server has gone away"
+  FIX: The max allowed packets for the database is too low. Go into the MySQL
+  directory and locate the configuration file (my.ini in Windows) and set
+  max_allowed_packet = 128M.
+
+- ERROR: Warning: Unknown: failed to open stream: No such file or directory in Unknown on line 0
+  FIX: Check the htaccess-file and change the auto_prepend_file real path to root directory.

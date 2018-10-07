@@ -1,0 +1,32 @@
+## htaccess File
+# Configure this file to modify the URI
+# -------------------------------------
+
+Options +FollowSymLinks -MultiViews
+
+## Inject the CMS features, used to abstract CMS from theme
+# This will need to change on a per-host basis
+php_value auto_prepend_file "c:/wamp64/projects/config.php"
+
+
+# Turn mod_rewrite on
+RewriteEngine On
+RewriteBase /
+
+## Hide .php-extension of theme php
+# Externally redirect 'page.php' to 'page'
+RewriteCond %{REQUEST_URI} !^/sp_core.*
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s([^.]+)\.php [NC]
+RewriteRule ^ %1 [R=302,L]
+
+# Internally forward 'page' to 'page.php' of theme php
+RewriteCond %{REQUEST_URI} !^/sp_core.*
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*?)/?$ $1.php [L]
+
+## Redirect to current theme ONLY if not trying to access sp_core subdir or themes settings
+#RewriteCond %{REQUEST_URI} !^/sp_core.*
+#RewriteCond %{REQUEST_URI} !^/themes.*
+RewriteRule ^(sp_core|themes)($|/) - [L]
+RewriteRule !^themes/SimplePost2018/ /themes/SimplePost2018/%{REQUEST_URI} [L,NC]

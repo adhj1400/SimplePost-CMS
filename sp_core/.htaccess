@@ -1,0 +1,2 @@
+## Prevent auto_prepend from root .htaccess file
+php_value auto_prepend_file none
