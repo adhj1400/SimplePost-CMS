@@ -1,5 +1,5 @@
 # SimplePost-CMS
-A simple CMS relying on PHP and Apache
+A simple CMS relying on PHP and Apache.
 
 ## Installation
 Install an Apache 2.4 PHP server and MySQL (e.g. WAMP).
