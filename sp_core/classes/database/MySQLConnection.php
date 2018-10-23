@@ -33,18 +33,30 @@ class MySQLConnection implements Connection
 		$this->mysqli = new mysqli($this->db_host, $this->db_user, 
                                    $this->db_pass);
 
-		// Connect to database
-        $this->mysqli->select_db($this->db_name);
+        // If host/DNS connection failed
+        if ($this->mysqli->connect_error)
+        {
+            throw new ErrorException("Could not connect to DNS '$db_host'. Check host name, database username and database user password. Error message: " . $this->mysqli->connect_error);
+        }
 
-        $result = $this->mysqli->query("SELECT DATABASE()");
+		// Select the database
+        $this->mysqli->select_db($this->db_name);
 
         // Check if user defined database exists, else show
         // error message
-		if (!$this->exists()) 
-		{
-			throw new ErrorException("Database '$db_name' doesn't exist.<br>
+        $result = $this->mysqli->query("SELECT DATABASE()");
+        $row = $result->fetch_row();
+
+        if (!$result)
+        {
+            throw new ErrorException("Database '$db_name' doesn't exist.<br>
                 Go into your database management system and create one.");
-		}
+        }
+        else if($row[0] != $this->db_name)
+        {
+            throw new ErrorException("Database '$db_name' not selected. Current 
+                database is $row[0].");
+        }
 	}
 
     /**

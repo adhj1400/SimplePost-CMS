@@ -14,6 +14,12 @@ if(isset($_POST["cancel"]))
 	returnNow();
 }
 
+// Create directory if not exists
+if (!file_exists($target_dir)) 
+{
+    mkdir($target_dir, 0777, true);
+}
+
 // Check if there are errors and a file were selected
 if ($_FILES["fileToUpload"]["error"] != 0 && 
     $_FILES["fileToUpload"]["error"] != 4)
@@ -89,6 +95,7 @@ if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file))
 else 
 {
 	$_SESSION["notice"] = "Image not uploaded!";
+
     returnNow();
 }
 

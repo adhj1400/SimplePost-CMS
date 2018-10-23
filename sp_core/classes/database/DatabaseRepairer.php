@@ -46,6 +46,7 @@ class DatabaseRepairer
 		$filename = $_SERVER['DOCUMENT_ROOT']."/sp_core/resources/sp-core-resources/simplepost_db.sql";
 		$templine = '';
 
+
 		// Get the entire file
 		$lines = file($filename);
 
@@ -64,7 +65,12 @@ class DatabaseRepairer
 			// If it has a semicolon at the end, it's the end of the query
 			if (substr(trim($line), -1, 1) == ';')
 			{
-			    $db->query($templine) or print('Error performing query \'<strong>' . $templine . '\': ' . mysql_error() . '<br /><br />');
+			    $result = $db->query($templine);
+
+			    if ($result["error"])
+				{
+					echo $result["error"];
+				}
 			    
 			    $templine = '';
 			}

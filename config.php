@@ -1,10 +1,10 @@
 <?php
 
 // Set to match your database
-define('DB_SERVER', 'localhost');
-define('DB_DATABASE', 'simplepost_db');
-define('DB_USERNAME', 'root');
-define('DB_PASSWORD', '');
+define('DB_SERVER', 'example.123.com');
+define('DB_DATABASE', 'database_name');
+define('DB_USERNAME', 'your_db_username');
+define('DB_PASSWORD', 'your_db_password');
 define('DB_TYPE', 'MySQL');
 
 
@@ -12,5 +12,7 @@ define('DB_TYPE', 'MySQL');
  * Do not alter anything below
  **************************************/
 
-include_once "sp_core/sp-config.php"; 
+$path = $_SERVER['DOCUMENT_ROOT'];
+$path .= "/sp_core/sp-config.php";
+include_once($path);
 ?>
